@@ -1,6 +1,6 @@
 ## Explicacion de COLECCIONES en java:  
 
-![Esquema de Colecciones](/diagramaColecciones.png)  
+![Esquema de Colecciones](./diagramaColecciones.png)  
  + Tomando como referencia la imagen se explicaran a continuacion los conceptos tratados.   
 
 ### 1. Qué representa el diagrama (leyenda)  

@@ -46,7 +46,7 @@ public class CalculadoraSimplePOO{
 		Scanner scanner = new Scanner(System.in);
 
 		calc.leerumeros();
-
+		
         System.out.println("Selecciona una operación:");
         System.out.println("1. Sumar");
         System.out.println("2. Restar");

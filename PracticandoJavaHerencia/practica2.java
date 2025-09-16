@@ -1,0 +1,1 @@
+// Define una clase Person con los atributos name y age. Luego crea una clase Student que agregue el atributo grade y un método study().
