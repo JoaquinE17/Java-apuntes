@@ -19,61 +19,61 @@ La imagen también marca con un asterisco las clases sincronizadas (seguras para
 
 * List
 	+ Una colección ordenada con índices (posiciones). Permite duplicados y acceso por índice.
-	+ Implementaciones típicas: ArrayList, LinkedList, Vector.
-	+ Operaciones típicas: get(index), add(index, e), remove(index), set(index, e).
+	+ Implementaciones típicas: *ArrayList*, *LinkedList*, *Vector*.
+	+ Operaciones típicas: `get(index)`, `add(index, e)`, `remove(index)`, `set(index, e)`.
 
 * Set
 	+ Colección que NO permite duplicados (cada elemento es único). No asegura orden (depende de implementación).
-	+ Implementaciones típicas: HashSet, TreeSet.
-	+ SortedSet (y NavigableSet)
-	+ SortedSet extiende Set y mantiene los elementos en orden. NavigableSet añade operaciones como lower(), higher(), ceiling(), floor().
+	+ Implementaciones típicas: *HashSet*, *TreeSet*.
+	+ SortedSet y NavigableSet
+	+ **SortedSet** extiende Set y mantiene los elementos en orden. **NavigableSet** añade operaciones como `lower()`, `higher()`, `ceiling()`, `floor()`.
 	+ Implementación habitual: TreeSet (orden natural o con Comparator).
 
 * Map
-	+ Estructura de pares clave → valor. No es Collection. Operaciones: put, get, remove, containsKey, keySet, values, entrySet.
-	+ Implementaciones: HashMap, TreeMap, Hashtable.
-	+ SortedMap (y NavigableMap)
-	+ SortedMap mantiene las claves ordenadas; NavigableMap añade métodos de navegación. Ejemplo: TreeMap.
+	+ Estructura de pares clave → valor. No es Collection. Operaciones: `put, get, remove, containsKey, keySet, values, entrySet`.
+	+ Implementaciones: *HashMap*, *TreeMap*, *Hashtable*.
+	+ SortedMap y NavigableMap
+	+ **SortedMap** mantiene las claves ordenadas; **NavigableMap** añade métodos de navegación. Ejemplo: TreeMap.
 
 ### 3. Implementaciones importantes (qué hacen y cuándo usarlas)  
 
-* ***ArrayList***
+* ***ArrayList*** -> list
 	+ Implementa List con un array dinámico.
 	+ Acceso por índice: O(1). Insertar/Eliminar en medio: O(n).
 	+ add(e) al final es amortizado O(1).
 	+ No es sincronizada (si necesitas sincronía usar Collections.synchronizedList(...) o clases de concurrencia).
 	+ Uso: cuando necesitas acceso rápido por índice y pocas inserciones/remociones en medio.
 
-* ***LinkedList***
+* ***LinkedList*** -> list
 	+ Implementa List (y Deque) como lista doblemente enlazada.
 	+ get(i) es O(n) (malo para acceso aleatorio). Insertar/remover al principio/fin es O(1).
 	+ Útil para colas/deques o cuando haces muchas inserciones/remociones en extremos.
 
-* ***Vector***
+* ***Vector*** -> list
 	+ Similar a ArrayList pero sincronizado (legacy). Hoy en día se evita en favor de ArrayList o colecciones concurrentes.
 	+ Tiene capacityIncrement y métodos heredados.
 
-* ***HashSet***
+* ***HashSet*** -> set
 	+ Backed por un HashMap internamente. No permite duplicados.
 	+ Operaciones add, contains, remove promedio O(1) (depende de hashCode() y equals()).
 	+ Desordenado: el orden no está garantizado.
 	+ Permite un null (sí, HashSet acepta null).
 
-* ***TreeSet***
-	+ Implementa SortedSet (usualmente un árbol rojo-negro). Operaciones O(log n).
-	+ Mantiene los elementos ordenados (por orden natural o por Comparator).
+* ***TreeSet*** -> set
+	+ Implementa `SortedSet` (usualmente un árbol rojo-negro). Operaciones O(log n).
+	+ Mantiene los *elementos ordenados* (por orden natural o por Comparator).
 	+ No permite null si la comparación no soporta null (con orden natural null provoca NullPointerException).
 
-* ***HashMap***
+* ***HashMap*** -> map
 	+ Implementa Map con hashing. put, get, remove promedio O(1) (a depender de hashCode()).
 	+ Permite una clave null y valores null.
 	+ No ordenado.
 
-* ***Hashtable***
+* ***Hashtable*** -> map
 	+ Versión antigua y sincronizada de HashMap. No acepta claves ni valores null.
 	+ Hoy en día se prefiere HashMap + sincronización externa o ConcurrentHashMap.
 
-* ***TreeMap***
+* ***TreeMap*** -> map
 	+ Implementa SortedMap con árbol (O(log n)). Mantiene las claves ordenadas.
 	+ No permite null si la comparación natural no lo acepta.
 
@@ -178,10 +178,7 @@ while(it.hasNext()){
    + **`Comparator`**: ordenar externo, reusable.
    + **`Collections/Arrays`**: utilidades varias (ordenar, envolver en sincronizados, convertir).
 
-----------------------------------------------------------------------------------------------------
-
-¡Excelente! 🚀
-Si recién estás entrando en el tema de colecciones en Java, lo mejor es empezar con una visión clara, sencilla y organizada. Te armo una guía paso a paso para que construyas una base sólida.
+----------------------------------------------------------------------------------------------------  
 
 ### 1. ¿Qué es una colección?
 
@@ -397,4 +394,355 @@ Salida del programa
 
    + HashMap asocia clave→valor y si repites clave, se reemplaza el valor.
 
-* Este ejemplo es clave porque muestra la misma información representada en tres colecciones distintas, cada una útil en un contexto diferente.
+* Este ejemplo es clave porque muestra la misma información representada en tres colecciones distintas, cada una útil en un contexto diferente.  
+
+----------------------------------------------------------------------------------------------------  
+
+### 1. List (ej. ArrayList, LinkedList)  
+
+* Una List es una colección ordenada que permite elementos duplicados.  
+
+Métodos comunes:  
+----------------
+*Método*									*Descripción*  
+`add(E e)`								Agrega un elemento al final de la lista.  
+`add(int index, E element)`				Inserta un elemento en una posición específica.  
+`get(int index)`						Devuelve el elemento en la posición indicada.  
+`set(int index, E element)`				Reemplaza el elemento en la posición dada.  
+`remove(int index)`						Elimina el elemento en esa posición.  
+`remove(Object o)`						Elimina la primera ocurrencia del objeto dado.  
+`size()`								Devuelve el número de elementos en la lista.  
+`isEmpty()`								Verifica si la lista está vacía.  
+`contains(Object o)`					Verifica si la lista contiene el objeto.  
+`clear()`								Elimina todos los elementos de la lista.  
+`indexOf(Object o)`						Devuelve la primera posición del objeto.  
+`lastIndexOf(Object o)`					Devuelve la última posición del objeto.  
+`subList(int fromIndex, int toIndex)`	Devuelve una vista parcial de la lista.  
+
+### 2. Set (ej. HashSet, TreeSet, LinkedHashSet)  
+
+* Un Set no permite elementos duplicados y no garantiza orden, excepto en implementaciones específicas como TreeSet.  
+
+Métodos comunes:  
+----------------   
+*Método*				*Descripción*  
+`add(E e)`				Agrega un elemento al set si no existe.  
+`remove(Object o)`		Elimina el elemento si está presente.  
+`contains(Object o)`	Verifica si el set contiene el elemento.  
+`isEmpty()`				Verifica si el set está vacío.  
+`size()`				Retorna el número de elementos.  
+`clear()`				Elimina todos los elementos del set.  
+`iterator()`			Devuelve un iterador para recorrer el set.  
+
++ Recuerda que Set no tiene métodos como get(index) porque no tiene un orden indexado.  
+
+### 3. Map (ej. HashMap, TreeMap, LinkedHashMap)  
+
+* Un Map asocia claves (key) a valores (value). Las claves no pueden repetirse.  
+
+Métodos comunes:  
+---------------  
+*Método*						*Descripción*  
+`put(K key, V value)`			Asocia un valor a una clave.  
+`get(Object key)`				Devuelve el valor asociado a la clave.  
+`remove(Object key)`			Elimina la clave y su valor asociado.  
+`containsKey(Object key)`		Verifica si la clave existe.  
+`containsValue(Object value)`	Verifica si el valor existe.  
+`isEmpty()`						Verifica si el mapa está vacío.  
+`size()`						Retorna el número de pares clave-valor.  
+`clear()`						Elimina todas las entradas del mapa.  
+`keySet()`						Devuelve un Set con todas las claves.  
+`values()`						Devuelve una colección con todos los valores.  
+`entrySet()`					Devuelve un Set con los pares clave-valor (Map.Entry<K, V>).  
+
+#### Diferencias claves  
+Característica					List							Set									Map  
+Permite duplicados				✅ Sí							❌ No								❌ Claves no  
+Ordenado						✅ (depende de implementación)	❌ (excepto LinkedHashSet, TreeSet)	❌ (excepto LinkedHashMap, TreeMap)  
+Acceso por índice				✅ Sí							❌ No								❌ No  
+Estructura de clave-valor		❌ No							❌ No								✅ Sí  
+
+----------------------------------------------------------------------------------------------------  
+
+### Explicando metodos comunes entre los tres   
+
+   - Ordenamiento
+   - Búsqueda
+   - Iteración
+   - Transformaciones
+   - Comparadores personalizados
+
+ORDENAR COLECCIONES  
+-------------------  
+
+* ***List – Ordenamiento***  
+	+ La interfaz List es ordenable porque mantiene un orden indexado.  
+	- Usando `Collections.sort()`  
+ ~~~java
+List<String> nombres = new ArrayList<>();
+nombres.add("Pedro");
+nombres.add("Ana");
+nombres.add("Juan");
+Collections.sort(nombres); // Orden alfabético
+System.out.println(nombres); // [Ana, Juan, Pedro]
+ ~~~  
+	- Orden personalizado (Comparator)
+ ~~~java
+List<String> nombres = Arrays.asList("Pedro", "Ana", "Juan");
+
+// Orden por longitud del nombre
+nombres.sort(Comparator.comparing(String::length));
+System.out.println(nombres); // [Ana, Juan, Pedro]
+
+Desde Java 8+ con Lambda
+nombres.sort((a, b) -> b.length() - a.length()); // Orden descendente por longitud
+ ~~~  
+
+* ***Set – Ordenamiento***  
+	+ Set no es indexado, pero algunas implementaciones mantienen orden:  
+	- Usar `TreeSet` *(orden natural o con Comparator)*  
+ ~~~java
+Set<String> set = new TreeSet<>();
+set.add("Pedro");
+set.add("Ana");
+set.add("Juan");
+System.out.println(set); // [Ana, Juan, Pedro]
+ ~~~  
+ 	- `TreeSet` con `Comparator` personalizado  
+ ~~~java
+Set<String> set = new TreeSet<>((a, b) -> b.compareTo(a)); // Orden alfabético inverso
+set.add("Pedro");
+set.add("Ana");
+set.add("Juan");
+System.out.println(set); // [Pedro, Juan, Ana]
+ ~~~  
+	+ `HashSet` no tiene orden, y `LinkedHashSet` mantiene orden de inserción.  
+
+* ***Map – Ordenamiento por claves o valores***  
+	+ Ordenar un Map por clave (`TreeMap`)  
+ ~~~java
+Map<String, Integer> edades = new TreeMap<>();
+edades.put("Pedro", 30);
+edades.put("Ana", 25);
+edades.put("Juan", 35);
+System.out.println(edades); // Ordenado alfabéticamente por clave
+ ~~~  
+ 	- Ordenar por valor (usando streams o listas temporales).  
+ ~~~java
+Map<String, Integer> edades = new HashMap<>();
+edades.put("Pedro", 30);
+edades.put("Ana", 25);
+edades.put("Juan", 35);
+List<Map.Entry<String, Integer>> lista = new ArrayList<>(edades.entrySet());
+lista.sort(Map.Entry.comparingByValue());
+for (Map.Entry<String, Integer> entry : lista) {
+    System.out.println(entry.getKey() + ": " + entry.getValue());
+}
+ ~~~  
+
+BÚSQUEDA Y FILTRADO  
+-------------------  
+
+* ***Con List (Java 8+)***  
+ ~~~java
+List<String> nombres = Arrays.asList("Pedro", "Ana", "Juan");
+
+List<String> filtrados = nombres.stream()
+    .filter(nombre -> nombre.startsWith("A"))
+    .collect(Collectors.toList());
+System.out.println(filtrados); // [Ana]
+ ~~~  
+
+* ***Con Map***
+~~~java
+Map<String, Integer> edades = Map.of("Pedro", 30, "Ana", 25, "Juan", 35);
+// Buscar claves mayores de 30
+edades.entrySet().stream()
+    .filter(e -> e.getValue() > 30)
+    .forEach(e -> System.out.println(e.getKey())); // Juan
+~~~  
+
+ITERACIÓN  
+---------  
+
+* ***Iterar List***  
+ ~~~java
+for (String nombre : nombres) {
+    System.out.println(nombre);
+}
+ ~~~
+
+* ***Iterar Set***  
+ ~~~java
+for (String elemento : set) {
+    System.out.println(elemento);
+}
+ ~~~
+
+* ***Iterar Map***  
+ ~~~java
+for (Map.Entry<String, Integer> entry : edades.entrySet()) {
+    System.out.println(entry.getKey() + ": " + entry.getValue());
+}
+ ~~~  
+
+TRANSFORMACIONES Y UTILIDADES  
+-----------------------------  
+
+* ***Convertir List a Set (para eliminar duplicados)***  
+ ~~~java
+List<String> nombres = Arrays.asList("Ana", "Pedro", "Ana");
+Set<String> sinDuplicados = new HashSet<>(nombres);
+ ~~~  
+
+* ***Convertir Map a List de entradas***
+ ~~~java
+List<Map.Entry<String, Integer>> lista = new ArrayList<>(map.entrySet());
+ ~~~
+
+* ***Comparadores personalizados***
+ ~~~java
+Comparator<String> porLongitudYAlfabetico = Comparator
+    .comparing(String::length)
+    .thenComparing(Comparator.naturalOrder());
+
+nombres.sort(porLongitudYAlfabetico);
+ ~~~
+
+----------------------------------------------------------------------------------------------------  
+
+### Mini Proyecto: Gestión de Estudiantes
+   + Simularemos una app simple que gestiona una lista de estudiantes, cada uno con nombre, edad y carrera.
+
+* Estructura del Proyecto  
+~~~bash
+GestorEstudiantes/
+├── Main.java
+├── Estudiante.java
+└── GestorEstudiantes.java
+~~~
+
+* 1. Estudiante.java  
+~~~java
+public class Estudiante {
+    private String nombre;
+    private int edad;
+    private String carrera;
+
+    public Estudiante(String nombre, int edad, String carrera) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.carrera = carrera;
+    }
+
+    public String getNombre() { return nombre; }
+    public int getEdad() { return edad; }
+    public String getCarrera() { return carrera; }
+
+    @Override
+    public String toString() {
+        return nombre + " (" + edad + " años, " + carrera + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Estudiante)) return false;
+        Estudiante e = (Estudiante) o;
+        return nombre.equals(e.nombre) && edad == e.edad;
+    }
+
+    @Override
+    public int hashCode() {
+        return nombre.hashCode() + edad;
+    }
+}
+~~~
+
+* 2. GestorEstudiantes.java
+~~~java
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class GestorEstudiantes {
+    private List<Estudiante> estudiantes = new ArrayList<>();
+
+    public void agregarEstudiante(Estudiante e) {
+        estudiantes.add(e);
+    }
+
+    public void mostrarEstudiantes() {
+        estudiantes.forEach(System.out::println);
+    }
+
+    public void ordenarPorNombre() {
+        estudiantes.sort(Comparator.comparing(Estudiante::getNombre));
+    }
+
+    public void ordenarPorEdadDesc() {
+        estudiantes.sort(Comparator.comparingInt(Estudiante::getEdad).reversed());
+    }
+
+    public Set<Estudiante> obtenerSinDuplicados() {
+        return new HashSet<>(estudiantes);
+    }
+
+    public Map<String, List<Estudiante>> agruparPorCarrera() {
+        return estudiantes.stream()
+                .collect(Collectors.groupingBy(Estudiante::getCarrera));
+    }
+
+    public List<Estudiante> filtrarPorCarrera(String carrera) {
+        return estudiantes.stream()
+                .filter(e -> e.getCarrera().equalsIgnoreCase(carrera))
+                .collect(Collectors.toList());
+    }
+}
+~~~
+
+* 3. Main.java
+~~~java
+public class Main {
+    public static void main(String[] args) {
+        GestorEstudiantes gestor = new GestorEstudiantes();
+
+        gestor.agregarEstudiante(new Estudiante("Ana", 20, "Ingeniería"));
+        gestor.agregarEstudiante(new Estudiante("Juan", 22, "Medicina"));
+        gestor.agregarEstudiante(new Estudiante("Pedro", 21, "Ingeniería"));
+        gestor.agregarEstudiante(new Estudiante("Ana", 20, "Ingeniería")); // Duplicado
+
+        System.out.println("📋 Estudiantes:");
+        gestor.mostrarEstudiantes();
+
+        System.out.println("\n🔤 Ordenados por nombre:");
+        gestor.ordenarPorNombre();
+        gestor.mostrarEstudiantes();
+
+        System.out.println("\n📉 Ordenados por edad descendente:");
+        gestor.ordenarPorEdadDesc();
+        gestor.mostrarEstudiantes();
+
+        System.out.println("\n🚫 Sin duplicados:");
+        Set<Estudiante> sinDup = gestor.obtenerSinDuplicados();
+        sinDup.forEach(System.out::println);
+
+        System.out.println("\n📚 Agrupados por carrera:");
+        gestor.agruparPorCarrera().forEach((carrera, lista) -> {
+            System.out.println("Carrera: " + carrera);
+            lista.forEach(System.out::println);
+        });
+
+        System.out.println("\n🔍 Estudiantes de Ingeniería:");
+        gestor.filtrarPorCarrera("Ingeniería").forEach(System.out::println);
+    }
+}
+~~~
+
+¿Qué puedes practicar con este proyecto?  
+----------------------------------------  
+*Característica*						*Implementado*  
+- Uso de List							✅ Sí  
+- Eliminación de duplicados con Set		✅ Sí  
+- Agrupación y filtros con Map/Stream	✅ Sí  
+- Ordenamiento con Comparator			✅ Sí  
+- Iteración y salida ordenada			✅ Sí  
